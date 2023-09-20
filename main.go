@@ -36,9 +36,15 @@ import (
 // @externalDocs.description	OpenAPI
 // @externalDocs.url			https://swagger.io/resources/open-api/
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
+	log.Println(os.Getenv("APP_ENV"))
+	if os.Getenv("APP_ENV") != "PRODUCTION" {
+		log.Println("Loading from .env file")
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
+	} else {
+		log.Println("Loading from machines environment")
 	}
 
 	if _, err := db.Connect(); err != nil {
