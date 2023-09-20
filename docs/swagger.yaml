@@ -109,7 +109,7 @@ paths:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/responses.Data'
+            $ref: '#/definitions/responses.Default'
       summary: Delete Employee
       tags:
       - Employee

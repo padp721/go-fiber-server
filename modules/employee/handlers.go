@@ -168,7 +168,7 @@ func UpdateEmployeeById(c *fiber.Ctx) error {
 // @tags			Employee
 // @Param			id	path	string	true	"Employee Id"
 // @produce		json
-// @success		200	{object}	responses.Data
+// @success		200	{object}	responses.Default
 // @router			/employee/{id} [delete]
 func DeleteEmployeeById(c *fiber.Ctx) error {
 	id := c.Params("id")

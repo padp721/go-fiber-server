@@ -185,7 +185,7 @@ const docTemplate = `{
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "$ref": "#/definitions/responses.Data"
+                            "$ref": "#/definitions/responses.Default"
                         }
                     }
                 }
