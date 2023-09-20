@@ -1,0 +1,21 @@
+name: go-fiber-server
+
+services:
+  backend:
+    image: 'randomize721/go-fiber-server:1.0'
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    restart: always
+    environment:
+      - APP_PORT=8000
+      - APP_ENV=PRODUCTION
+      - APP_PRINT_ROUTES=false
+
+      - DB_CLIENT=
+      - DB_HOST=
+      - DB_PORT=
+      - DB_USER=
+      - DB_PASSWORD=
+      - DB_NAME=
