@@ -94,6 +94,69 @@ paths:
       summary: Add Employee
       tags:
       - Employee
+  /employee/{id}:
+    delete:
+      description: Delete employee by Id
+      parameters:
+      - description: Employee Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Data'
+      summary: Delete Employee
+      tags:
+      - Employee
+    get:
+      description: Get employee by Id
+      parameters:
+      - description: Employee Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Data'
+      summary: Show Employee by Id
+      tags:
+      - Employee
+    put:
+      consumes:
+      - application/json
+      description: Update employee data
+      parameters:
+      - description: Employee Id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: New Employee Data
+        in: body
+        name: employee
+        required: true
+        schema:
+          $ref: '#/definitions/employee.EmployeeField'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Default'
+      summary: Update Employee
+      tags:
+      - Employee
   /params/{value}:
     get:
       description: return greetings with sent parameter

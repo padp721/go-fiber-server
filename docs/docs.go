@@ -96,6 +96,101 @@ const docTemplate = `{
                 }
             }
         },
+        "/employee/{id}": {
+            "get": {
+                "description": "Get employee by Id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Show Employee by Id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Employee Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Data"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update employee data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Update Employee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Employee Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "New Employee Data",
+                        "name": "employee",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/employee.EmployeeField"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Default"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete employee by Id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Employee"
+                ],
+                "summary": "Delete Employee",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Employee Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Data"
+                        }
+                    }
+                }
+            }
+        },
         "/params/{value}": {
             "get": {
                 "description": "return greetings with sent parameter",

@@ -7,6 +7,7 @@ import (
 	_ "randomize721/go-fiber-server/docs"
 	"randomize721/go-fiber-server/modules/employee"
 	"randomize721/go-fiber-server/modules/helloworld"
+	"strconv"
 
 	"os"
 
@@ -44,16 +45,15 @@ func main() {
 		log.Fatal("Cannot connect to Database")
 	}
 
-	printRoutes := false
-	switch os.Getenv("APP_MODE") {
-	case "DEV":
-		printRoutes = true
+	APP_PRINT_ROUTES, err := strconv.ParseBool(os.Getenv("APP_PRINT_ROUTES"))
+	if err != nil {
+		log.Fatal("Error loading APP_PRINT_ROUTES from environment variable!")
 	}
 
 	fiberConfig := fiber.Config{
 		AppName:           "GO FIBER SERVER (Go v1.21.1)",
 		CaseSensitive:     true,
-		EnablePrintRoutes: printRoutes,
+		EnablePrintRoutes: APP_PRINT_ROUTES,
 	}
 
 	corsConfig := cors.Config{

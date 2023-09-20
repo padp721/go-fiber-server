@@ -3,9 +3,9 @@ package db
 import (
 	"database/sql"
 	"fmt"
+	"log"
 	"os"
-
-	"randomize721/go-fiber-server/utils/utils"
+	"strconv"
 
 	_ "github.com/lib/pq"
 )
@@ -24,10 +24,15 @@ type credential struct {
 func Connect() (*sql.DB, error) {
 	var err error
 
+	DB_PORT, err := strconv.Atoi(os.Getenv("DB_PORT"))
+	if err != nil {
+		log.Fatal("Error loading DB_PORT from environment variable!")
+	}
+
 	dbCredential := credential{
 		DB_CLIENT:   os.Getenv("DB_CLIENT"),
 		DB_HOST:     os.Getenv("DB_HOST"),
-		DB_PORT:     utils.StringToInteger(os.Getenv("DB_PORT")),
+		DB_PORT:     DB_PORT,
 		DB_USER:     os.Getenv("DB_USER"),
 		DB_PASSWORD: os.Getenv("DB_PASSWORD"),
 		DB_NAME:     os.Getenv("DB_NAME"),
