@@ -14,7 +14,3 @@ type EmployeeField struct {
 	Phone   string `json:"phone" example:"0876543219"`
 	Address string `json:"address" example:"Jl. Siulan"`
 }
-
-type Employees struct {
-	Employees []Employee `json:"employees"`
-}

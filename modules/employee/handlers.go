@@ -28,7 +28,7 @@ func GetAllEmployees(c *fiber.Ctx) error {
 	}
 	defer rows.Close()
 
-	res := Employees{}
+	var employees []Employee
 	for rows.Next() {
 		employee := Employee{}
 		if err := rows.Scan(&employee.Id, &employee.Name, &employee.Phone, &employee.Address); err != nil {
@@ -39,17 +39,17 @@ func GetAllEmployees(c *fiber.Ctx) error {
 			log.Println(err.Error())
 			return c.Status(500).JSON(response)
 		}
-		res.Employees = append(res.Employees, employee)
+		employees = append(employees, employee)
 	}
 
 	response := responses.Data{
 		ResponseCode: 200,
 	}
-	if len(res.Employees) < 1 {
+	if len(employees) < 1 {
 		response.ResponseMessage = "Tidak ada data ditemukan."
 	} else {
 		response.ResponseMessage = "Berhasil mengambil data."
-		response.Data = res.Employees
+		response.Data = employees
 	}
 	return c.Status(200).JSON(response)
 }
@@ -67,8 +67,8 @@ func GetEmployeeById(c *fiber.Ctx) error {
 	query := "SELECT id, name, phone, address FROM app.employees WHERE id=$1"
 	row := db.Session.QueryRow(query, id)
 
-	res := Employee{}
-	if err := row.Scan(&res.Id, &res.Name, &res.Phone, &res.Address); err != nil || err == sql.ErrNoRows {
+	var employee Employee
+	if err := row.Scan(&employee.Id, &employee.Name, &employee.Phone, &employee.Address); err != nil || err == sql.ErrNoRows {
 		response := responses.Default{
 			ResponseCode:    500,
 			ResponseMessage: err.Error(),
@@ -80,7 +80,7 @@ func GetEmployeeById(c *fiber.Ctx) error {
 	response := responses.Data{
 		ResponseCode:    200,
 		ResponseMessage: "Berhasil mengambil data.",
-		Data:            res,
+		Data:            employee,
 	}
 	return c.Status(200).JSON(response)
 }
