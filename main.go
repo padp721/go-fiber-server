@@ -3,8 +3,10 @@ package main
 import (
 	"fmt"
 	"log"
+	"randomize721/go-fiber-server/config/cassandra"
 	"randomize721/go-fiber-server/config/db"
 	_ "randomize721/go-fiber-server/docs"
+	"randomize721/go-fiber-server/modules/book"
 	"randomize721/go-fiber-server/modules/employee"
 	"randomize721/go-fiber-server/modules/helloworld"
 	"strconv"
@@ -41,14 +43,18 @@ func main() {
 		log.Println("Loading from .env file")
 		err := godotenv.Load()
 		if err != nil {
-			log.Fatal("Error loading .env file")
+			log.Fatalf("Error loading .env file: %v", err)
 		}
 	} else {
 		log.Println("Loading from machines environment")
 	}
 
 	if _, err := db.Connect(); err != nil {
-		log.Fatal("Cannot connect to Database")
+		log.Fatalf("Cannot connect to Database: %v", err)
+	}
+
+	if _, err := cassandra.Connect(); err != nil {
+		log.Fatalf("unable to connect Astra DB session: %v", err)
 	}
 
 	APP_PRINT_ROUTES, err := strconv.ParseBool(os.Getenv("APP_PRINT_ROUTES"))
@@ -83,6 +89,9 @@ func main() {
 
 	employeeRoutes := api.Group("/employee")
 	employee.Setup(employeeRoutes)
+
+	bookRoutes := api.Group("/book")
+	book.Setup(bookRoutes)
 
 	APP_PORT := os.Getenv("APP_PORT")
 	app.Listen(fmt.Sprintf(":%s", APP_PORT))
