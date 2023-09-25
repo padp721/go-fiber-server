@@ -45,5 +45,5 @@ func Connect() (*gocql.Session, error) {
 		return Session, err
 	}
 
-	return Session, err
+	return Session, nil
 }
