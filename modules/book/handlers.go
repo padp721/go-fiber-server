@@ -135,3 +135,24 @@ func UpdateBookById(c *fiber.Ctx) error {
 	}
 	return c.Status(200).JSON(response)
 }
+
+func DeleteBookById(c *fiber.Ctx) error {
+	id := c.Params("id")
+
+	cql := "DELETE FROM books WHERE id=?"
+	err := cassandra.Session.Query(cql, id).Exec()
+	if err != nil {
+		response := responses.Default{
+			ResponseCode:    500,
+			ResponseMessage: err.Error(),
+		}
+		log.Println(err.Error())
+		return c.Status(500).JSON(response)
+	}
+
+	response := responses.Default{
+		ResponseCode:    200,
+		ResponseMessage: "Berhasil menghapus data.",
+	}
+	return c.Status(200).JSON(response)
+}

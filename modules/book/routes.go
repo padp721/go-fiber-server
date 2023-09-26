@@ -7,4 +7,5 @@ func Setup(parent fiber.Router) {
 	parent.Post("/", AddBook)
 	parent.Get("/:id<string>", GetBookById)
 	parent.Put("/:id<string>", UpdateBookById)
+	parent.Delete("/:id<string>", DeleteBookById)
 }
