@@ -6,7 +6,7 @@ import (
 
 type Book struct {
 	Id     gocql.UUID `json:"id"`
-	Author string     `json:"Author"`
+	Author string     `json:"author"`
 	Title  string     `json:"title"`
 	Year   int        `json:"year"`
 }
