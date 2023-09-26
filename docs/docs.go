@@ -44,6 +44,153 @@ const docTemplate = `{
                 }
             }
         },
+        "/book": {
+            "get": {
+                "description": "Get all books",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Show All Books",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Data"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Add new book",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Add Book",
+                "parameters": [
+                    {
+                        "description": "New Book",
+                        "name": "book",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/book.BookField"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Default"
+                        }
+                    }
+                }
+            }
+        },
+        "/book/{id}": {
+            "get": {
+                "description": "Get book by Id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Show Book by Id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Book Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Data"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Update book data",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Update Book",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Book Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "New Book Data",
+                        "name": "book",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/book.BookField"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Default"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Delete book by Id",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Book"
+                ],
+                "summary": "Delete Book",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Book Id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/responses.Default"
+                        }
+                    }
+                }
+            }
+        },
         "/employee": {
             "get": {
                 "description": "Get all employees",
@@ -222,6 +369,23 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "book.BookField": {
+            "type": "object",
+            "properties": {
+                "author": {
+                    "type": "string",
+                    "example": "New author"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "New book title"
+                },
+                "year": {
+                    "type": "integer",
+                    "example": 1999
+                }
+            }
+        },
         "employee.EmployeeField": {
             "type": "object",
             "properties": {

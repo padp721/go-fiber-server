@@ -9,6 +9,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+//	@summary		Show All Books
+//	@description	Get all books
+//	@tags			Book
+//	@produce		json
+//	@success		200	{object}	responses.Data
+//	@router			/book [get]
 func GetAllBooks(c *fiber.Ctx) error {
 	cql := "SELECT id, title, author, year FROM books"
 	rows := cassandra.Session.Query(cql).Iter()
@@ -36,6 +42,13 @@ func GetAllBooks(c *fiber.Ctx) error {
 	return c.Status(200).JSON(response)
 }
 
+//	@summary		Show Book by Id
+//	@description	Get book by Id
+//	@tags			Book
+//	@Param			id	path	string	true	"Book Id"
+//	@produce		json
+//	@success		200	{object}	responses.Data
+//	@router			/book/{id} [get]
 func GetBookById(c *fiber.Ctx) error {
 	id := c.Params("id")
 
@@ -65,6 +78,14 @@ func GetBookById(c *fiber.Ctx) error {
 	return c.Status(200).JSON(response)
 }
 
+//	@summary		Add Book
+//	@description	Add new book
+//	@tags			Book
+//	@accept			json
+//	@produce		json
+//	@Param			book	body		BookField	true	"New Book"
+//	@success		200		{object}	responses.Default
+//	@router			/book [post]
 func AddBook(c *fiber.Ctx) error {
 	newBook := new(BookField)
 
@@ -105,6 +126,15 @@ func AddBook(c *fiber.Ctx) error {
 	return c.Status(200).JSON(response)
 }
 
+//	@summary		Update Book
+//	@description	Update book data
+//	@tags			Book
+//	@accept			json
+//	@produce		json
+//	@Param			id		path		string		true	"Book Id"
+//	@Param			book	body		BookField	true	"New Book Data"
+//	@success		200		{object}	responses.Default
+//	@router			/book/{id} [put]
 func UpdateBookById(c *fiber.Ctx) error {
 	id := c.Params("id")
 	book := new(BookField)
@@ -136,6 +166,13 @@ func UpdateBookById(c *fiber.Ctx) error {
 	return c.Status(200).JSON(response)
 }
 
+//	@summary		Delete Book
+//	@description	Delete book by Id
+//	@tags			Book
+//	@Param			id	path	string	true	"Book Id"
+//	@produce		json
+//	@success		200	{object}	responses.Default
+//	@router			/book/{id} [delete]
 func DeleteBookById(c *fiber.Ctx) error {
 	id := c.Params("id")
 

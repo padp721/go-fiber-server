@@ -1,5 +1,17 @@
 basePath: /api
 definitions:
+  book.BookField:
+    properties:
+      author:
+        example: New author
+        type: string
+      title:
+        example: New book title
+        type: string
+      year:
+        example: 1999
+        type: integer
+    type: object
   employee.EmployeeField:
     properties:
       address:
@@ -60,6 +72,103 @@ paths:
       summary: Show hello world
       tags:
       - Hello World
+  /book:
+    get:
+      description: Get all books
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Data'
+      summary: Show All Books
+      tags:
+      - Book
+    post:
+      consumes:
+      - application/json
+      description: Add new book
+      parameters:
+      - description: New Book
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/book.BookField'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Default'
+      summary: Add Book
+      tags:
+      - Book
+  /book/{id}:
+    delete:
+      description: Delete book by Id
+      parameters:
+      - description: Book Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Default'
+      summary: Delete Book
+      tags:
+      - Book
+    get:
+      description: Get book by Id
+      parameters:
+      - description: Book Id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Data'
+      summary: Show Book by Id
+      tags:
+      - Book
+    put:
+      consumes:
+      - application/json
+      description: Update book data
+      parameters:
+      - description: Book Id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: New Book Data
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/book.BookField'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/responses.Default'
+      summary: Update Book
+      tags:
+      - Book
   /employee:
     get:
       description: Get all employees
