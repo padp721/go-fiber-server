@@ -6,6 +6,7 @@ import (
 	"randomize721/go-fiber-server/config/cassandra"
 	"randomize721/go-fiber-server/config/db"
 	_ "randomize721/go-fiber-server/docs"
+	"randomize721/go-fiber-server/modules/authentication"
 	"randomize721/go-fiber-server/modules/book"
 	"randomize721/go-fiber-server/modules/employee"
 	"randomize721/go-fiber-server/modules/helloworld"
@@ -83,6 +84,9 @@ func main() {
 	app.Static("/", "./public")
 
 	app.Get("/docs/*", swagger.HandlerDefault)
+
+	authRoutes := app.Group("/auth")
+	authentication.Setup(authRoutes)
 
 	api := app.Group("/api")
 	helloworld.Setup(api)

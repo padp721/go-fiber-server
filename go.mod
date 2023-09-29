@@ -6,6 +6,7 @@ require (
 	github.com/gocql/gocql v1.6.0
 	github.com/gofiber/fiber/v2 v2.49.1
 	github.com/gofiber/swagger v0.1.13
+	github.com/golang-jwt/jwt/v5 v5.0.0
 	github.com/google/uuid v1.3.1
 	github.com/joho/godotenv v1.5.1
 	github.com/lib/pq v1.10.9
